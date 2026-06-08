@@ -1,0 +1,223 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0c10;--surface2:#181c24;--border:#222833;--border2:#2e3645;
+  --text:#e8eaf0;--muted:#6e7a8f;--faint:#2a3040;
+}
+body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);padding:28px 0 40px;margin:0}
+.wrap{width:80%;margin:0 auto}
+.header{display:flex;align-items:baseline;gap:14px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.header-title{font-family:'DM Serif Display',serif;font-size:21px;font-weight:400;letter-spacing:-.02em}
+.header-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.prod-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.prod-name{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.prod-name.blue{color:#6ea8e8}.prod-name.gold{color:#e8c96a}.prod-name.silver{color:#a0aaba}
+.prod-name.slate{color:#7a90a8}.prod-name.teal{color:#5bc4c0}.prod-name.orange{color:#f0954a}
+.tag{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--muted);background:var(--surface2);border:1px solid var(--border2);padding:1px 6px;border-radius:4px}
+.desc{font-size:11px;color:var(--muted);font-weight:300;line-height:1.5;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:10.5px;padding:2px 8px;border-radius:20px;border:1px solid;line-height:1.4}
+.chip.blue{background:rgba(110,168,232,.08);border-color:rgba(110,168,232,.25);color:#9ac0f0}
+.chip.gold{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.28);color:#d9b86a}
+.chip.silver{background:rgba(160,170,186,.07);border-color:rgba(160,170,186,.22);color:#b8c4d2}
+.chip.slate{background:rgba(122,144,168,.08);border-color:rgba(122,144,168,.22);color:#98afc4}
+.chip.teal{background:rgba(91,196,192,.08);border-color:rgba(91,196,192,.28);color:#7dd8d5}
+.chip.orange{background:rgba(240,149,74,.08);border-color:rgba(240,149,74,.28);color:#f5b07a}
+.int-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:7px 0 5px}
+.int-chips{display:flex;flex-wrap:wrap;gap:3px}
+.int-chip{font-family:'DM Mono',monospace;font-size:9.5px;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.03);border:1px solid var(--border2);color:var(--muted)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.lg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.lg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+</style>
+
+<div class="wrap">
+  <div class="header">
+    <span class="header-title">Estrutura Framework</span>
+    <span class="header-sub">v2025 · 6 sistemas</span>
+  </div>
+  <svg id="main" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block;overflow:visible"></svg>
+  <div class="legend">
+    <div class="lg-item"><div class="lg-dot" style="background:#6ea8e8"></div>Orquestração</div>
+    <div class="lg-item"><div class="lg-dot" style="background:#e8c96a"></div>Front operacional</div>
+    <div class="lg-item"><div class="lg-dot" style="background:#a0aaba"></div>Middleware</div>
+    <div class="lg-item"><div class="lg-dot" style="background:#7a90a8"></div>Gestor de campanhas</div>
+    <div class="lg-item"><div class="lg-dot" style="background:#5bc4c0"></div>Gestão de cobrança</div>
+    <div class="lg-item"><div class="lg-dot" style="background:#f0954a"></div>PWA Mobile</div>
+    <div class="lg-item">
+      <svg width="28" height="12"><defs><marker id="lg1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#e8c96a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><line x1="2" y1="6" x2="24" y2="6" stroke="#e8c96a" stroke-width="1.4" marker-end="url(#lg1)"/></svg>
+      Envia e recebe
+    </div>
+    <div class="lg-item">
+      <svg width="28" height="12"><defs><marker id="lg2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 2L8 5L2 8" fill="none" stroke="#a0aaba" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><line x1="2" y1="6" x2="24" y2="6" stroke="#a0aaba" stroke-width="1.4" marker-end="url(#lg2)"/></svg>
+      Somente envia
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const GOLD   = '#e8c96a';
+  const SILVER = '#a0aaba';
+  const BLUE   = '#6ea8e8';
+  const TEAL   = '#5bc4c0';
+  const ORANGE = '#f0954a';
+  const FAINT  = '#2a3040';
+  const ns     = 'http://www.w3.org/2000/svg';
+  const svg    = document.getElementById('main');
+
+  function el(tag,attrs,parent){
+    const e=document.createElementNS(ns,tag);
+    for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);
+    if(parent)parent.appendChild(e);
+    return e;
+  }
+  function fo(x,y,w,h,parent){return el('foreignObject',{x,y,width:w,height:h},parent);}
+  function mkMarker(id,color){
+    const m=el('marker',{id,viewBox:'0 0 10 10',refX:'8',refY:'5',markerWidth:'5',markerHeight:'5',orient:'auto'},defs);
+    el('path',{d:'M2 2L8 5L2 8',fill:'none',stroke:color,'stroke-width':'1.6','stroke-linecap':'round','stroke-linejoin':'round'},m);
+  }
+  function arrow(x1,y1,x2,y2,color,mid,parent){
+    el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':'1.4','marker-end':`url(#${mid})`},parent);
+  }
+  function connLabel(cx,cy,txt,color,bg,bord,parent){
+    const rw=82,rh=15;
+    el('rect',{x:cx-rw/2,y:cy-rh/2,width:rw,height:rh,rx:'4',fill:bg,stroke:bord,'stroke-width':'0.5'},parent);
+    const t=el('text',{x:cx,y:cy+4.5,'text-anchor':'middle','font-family':'DM Mono,monospace','font-size':'8.5',fill:color,'letter-spacing':'.5'},parent);
+    t.textContent=txt;
+  }
+  function sectionLabel(x,y,txt){
+    const t=el('text',{x,y,'text-anchor':'middle','font-family':'DM Mono,monospace','font-size':'9.5',fill:FAINT,'letter-spacing':'1.5'},svg);
+    t.textContent=txt;
+  }
+
+  // viewBox largo — o SVG ocupa 100% do .wrap que já tem 80% da tela
+  // Usamos 1000 unidades de largura para ter espaço generoso
+  const W     = 1000;
+  const GAP   = 12;
+  const NCOLS = 4;
+  const CW    = (W - GAP*(NCOLS-1)) / NCOLS; // (1000-36)/4 = 241
+
+  const X0 = 0;
+  const X1 = CW + GAP;
+  const X2 = X1 + CW + GAP;
+  const X3 = X2 + CW + GAP;
+  const cx0 = X0 + CW/2;
+  const cx1 = X1 + CW/2;
+  const cx2 = X2 + CW/2;
+  const cx3 = X3 + CW/2;
+
+  const H_ANDRO = 92;
+  const H_ROW2  = 214;
+  const CONN_H  = 44;
+  const H_VENUS = 130;
+
+  const Y_ANDRO = 0;
+  const Y_ROW2  = Y_ANDRO + H_ANDRO + 32;
+  const Y_CONN  = Y_ROW2 + H_ROW2 + 4;
+  const Y_VENUS = Y_CONN + CONN_H;
+  const TOTAL_H = Y_VENUS + H_VENUS + 4;
+
+  svg.setAttribute('viewBox',`0 0 ${W} ${TOTAL_H}`);
+  svg.setAttribute('height', TOTAL_H);
+
+  const defs=el('defs',{},svg);
+  mkMarker('arr-gold',  GOLD);
+  mkMarker('arr-silver',SILVER);
+  mkMarker('arr-blue',  BLUE);
+  mkMarker('arr-teal',  TEAL);
+  mkMarker('arr-orange',ORANGE);
+
+  function makeCard(accentColor,borderColor,bgColor,html,onClick){
+    const div=document.createElementNS('http://www.w3.org/1999/xhtml','div');
+    div.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+    div.style.cssText=[
+      'height:100%','padding:14px 16px','border-radius:10px',
+      `border:1px solid ${borderColor}`,`background:${bgColor}`,
+      'cursor:pointer','position:relative','overflow:hidden',
+      'transition:border-color .2s','font-family:Outfit,sans-serif'
+    ].join(';');
+    div.innerHTML=`<div style="position:absolute;top:0;left:0;right:0;height:2px;background:${accentColor};border-radius:10px 10px 0 0"></div>`+html;
+    div.addEventListener('mouseenter',()=>div.style.borderColor=accentColor);
+    div.addEventListener('mouseleave',()=>div.style.borderColor=borderColor);
+    if(onClick)div.onclick=onClick;
+    return div;
+  }
+  function chips(items,cls){
+    return`<div class="chips">${items.map(i=>`<span class="chip ${cls}">${i}</span>`).join('')}</div>`;
+  }
+  function intChips(items){
+    return`<div class="int-label">integrações externas</div><div class="int-chips">${items.map(i=>`<span class="int-chip">${i}</span>`).join('')}</div>`;
+  }
+
+  // ── ANDROMEDA full width ──────────────────────
+  fo(0,Y_ANDRO,W,H_ANDRO,svg).appendChild(makeCard(BLUE,'#1e3a5f','#0d1a2e',`
+    <div class="prod-row"><span class="prod-name blue">Andromeda</span><span class="tag">React · Python</span></div>
+    <div class="desc">Orquestrador e monitoramento central — controla e administra todos os sistemas</div>
+    ${chips(['Orquestração','Monitoramento','Administração global'],'blue')}
+  `,()=>sendPrompt('Me fala mais sobre o Andromeda como orquestrador central')));
+
+  sectionLabel(W/2, Y_ROW2-10, 'PRODUTOS OPERACIONAIS');
+
+  [cx0,cx1,cx2,cx3].forEach(cx=>{
+    arrow(cx,Y_ANDRO+H_ANDRO,cx,Y_ROW2-14,BLUE,'arr-blue',svg);
+  });
+
+  // ── JUPITER MOBILE ── col 0 ───────────────────
+  fo(X0,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard(ORANGE,'#5a2e10','#1c100a',`
+    <div class="prod-row"><span class="prod-name orange">Jupiter Mobile</span><span class="tag">PWA</span></div>
+    <div class="desc">Companion mobile do portal — KPIs, equipe e ranking para o time em campo</div>
+    ${chips(['Dashboard','Equipe','Gestão','Ranking'],'orange')}
+  `,()=>sendPrompt('Quais são os detalhes do Jupiter Mobile?')));
+
+  // ── JÚPITER ── col 1 ──────────────────────────
+  fo(X1,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard(GOLD,'#4a3c10','#1e1a0a',`
+    <div class="prod-row"><span class="prod-name gold">Júpiter</span><span class="tag">Client-Side · PostgreSQL</span></div>
+    <div class="desc">Front operacional — hub de módulos para times de vendas e operações</div>
+    ${chips(['Dashboard','Manager Resultados','Daily KPIs','Confirmação Agenda','Book de Vendas','Portfólio','Campanhas','SSO','Reward System','Ouvidoria'],'gold')}
+  `,()=>sendPrompt('Quais são os detalhes de cada módulo do Júpiter?')));
+
+  // ── ATHENA ── col 2 ───────────────────────────
+  fo(X2,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard('#7a90a8','#1e3048','#0e1520',`
+    <div class="prod-row"><span class="prod-name slate">Athena</span><span class="tag">Client-Side</span></div>
+    <div class="desc">Gestor de landing pages de campanhas internas</div>
+    ${chips(['Liberação','Gestão LP'],'slate')}
+    <div class="int-label">landing pages ativas</div>
+    <div class="int-chips"><span class="int-chip">Dash V1</span><span class="int-chip">Campanha Macbooks</span></div>
+  `,()=>sendPrompt('Como o Athena controla as landing pages?')));
+
+  // ── NETUNO ── col 3 ───────────────────────────
+  fo(X3,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard(TEAL,'#0e3636','#071818',`
+    <div class="prod-row"><span class="prod-name teal">Netuno</span><span class="tag">Client-Side</span></div>
+    <div class="desc">Sistema de gestão de cobrança e recuperação</div>
+    ${chips(['Conexa','GUI','Pulse','WAP Business'],'teal')}
+  `,()=>sendPrompt('Como o Netuno gerencia cobrança e recuperação?')));
+
+  // ── setas row2 → Venus ────────────────────────
+  const YB = Y_ROW2+H_ROW2;
+  const YV = Y_VENUS;
+
+  arrow(cx0,YB,cx0,YV-2,ORANGE,'arr-orange',svg);
+  connLabel(cx0+46,YB+16,'envia · recebe',ORANGE,'#1c100a','#5a2e10',svg);
+
+  arrow(cx1,YB,cx1,YV-2,GOLD,'arr-gold',svg);
+  connLabel(cx1+46,YB+16,'envia · recebe',GOLD,'#1e1a0a','#4a3c10',svg);
+
+  arrow(cx2,YV-2,cx2,YB+2,SILVER,'arr-silver',svg);
+  connLabel(cx2+46,YB+22,'somente envia',SILVER,'#12151c','#2a3040',svg);
+
+  arrow(cx3,YB,cx3,YV-2,TEAL,'arr-teal',svg);
+  connLabel(cx3-46,YB+16,'envia · recebe',TEAL,'#071818','#0e3636',svg);
+
+  // ── VÊNUS full width ──────────────────────────
+  fo(0,Y_VENUS,W,H_VENUS,svg).appendChild(makeCard(SILVER,'#2a3040','#12151c',`
+    <div class="prod-row"><span class="prod-name silver">Vênus</span><span class="tag">Python · WebSocket · Celery</span></div>
+    <div class="desc">Middleware e integrador — coleta dados de DBs e APIs, serve via REST</div>
+    ${chips(['API REST','WebSocket','Celery Workers'],'silver')}
+    ${intChips(['Promptos DB','Busca_Sistema DB','Busca_Lines DB','IFIX Webhook','MySQL Proxy','DB Data API'])}
+  `,()=>sendPrompt('Como o Vênus distribui dados entre os sistemas?')));
+
+})();
+</script>
