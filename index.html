@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrutura Framework — Busca Orgânica</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -6,7 +11,8 @@
   --bg:#0a0c10;--surface2:#181c24;--border:#222833;--border2:#2e3645;
   --text:#e8eaf0;--muted:#6e7a8f;--faint:#2a3040;
 }
-body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);padding:28px 0 40px;margin:0}
+html,body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);min-height:100vh}
+body{padding:28px 0 40px;margin:0}
 .wrap{width:80%;margin:0 auto}
 .header{display:flex;align-items:baseline;gap:14px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
 .header-title{font-family:'DM Serif Display',serif;font-size:21px;font-weight:400;letter-spacing:-.02em}
@@ -32,7 +38,8 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);padd
 .lg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
 .lg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 </style>
-
+</head>
+<body>
 <div class="wrap">
   <div class="header">
     <span class="header-title">Estrutura Framework</span>
@@ -93,44 +100,31 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);padd
     t.textContent=txt;
   }
 
-  // viewBox largo — o SVG ocupa 100% do .wrap que já tem 80% da tela
-  // Usamos 1000 unidades de largura para ter espaço generoso
-  const W     = 1000;
-  const GAP   = 12;
-  const NCOLS = 4;
-  const CW    = (W - GAP*(NCOLS-1)) / NCOLS; // (1000-36)/4 = 241
+  const W=1000, GAP=12, NCOLS=4;
+  const CW=(W-GAP*(NCOLS-1))/NCOLS;
+  const X0=0, X1=CW+GAP, X2=X1+CW+GAP, X3=X2+CW+GAP;
+  const cx0=X0+CW/2, cx1=X1+CW/2, cx2=X2+CW/2, cx3=X3+CW/2;
 
-  const X0 = 0;
-  const X1 = CW + GAP;
-  const X2 = X1 + CW + GAP;
-  const X3 = X2 + CW + GAP;
-  const cx0 = X0 + CW/2;
-  const cx1 = X1 + CW/2;
-  const cx2 = X2 + CW/2;
-  const cx3 = X3 + CW/2;
+  const H_ANDRO=92, H_ROW2=214, CONN_H=44, H_VENUS=130;
+  const API_GAP=28, H_API=52, NCOLS_API=4, API_HGAP=12;
+  const ACW=(W-API_HGAP*(NCOLS_API-1))/NCOLS_API;
 
-  const H_ANDRO = 92;
-  const H_ROW2  = 214;
-  const CONN_H  = 44;
-  const H_VENUS = 130;
-
-  const Y_ANDRO = 0;
-  const Y_ROW2  = Y_ANDRO + H_ANDRO + 32;
-  const Y_CONN  = Y_ROW2 + H_ROW2 + 4;
-  const Y_VENUS = Y_CONN + CONN_H;
-  const TOTAL_H = Y_VENUS + H_VENUS + 4;
+  const Y_ANDRO=0, Y_ROW2=Y_ANDRO+H_ANDRO+32;
+  const Y_CONN=Y_ROW2+H_ROW2+4, Y_VENUS=Y_CONN+CONN_H;
+  const Y_APIS=Y_VENUS+H_VENUS+API_GAP;
+  const TOTAL_H=Y_APIS+H_API+8;
 
   svg.setAttribute('viewBox',`0 0 ${W} ${TOTAL_H}`);
-  svg.setAttribute('height', TOTAL_H);
+  svg.setAttribute('height',TOTAL_H);
 
   const defs=el('defs',{},svg);
-  mkMarker('arr-gold',  GOLD);
+  mkMarker('arr-gold',GOLD);
   mkMarker('arr-silver',SILVER);
-  mkMarker('arr-blue',  BLUE);
-  mkMarker('arr-teal',  TEAL);
+  mkMarker('arr-blue',BLUE);
+  mkMarker('arr-teal',TEAL);
   mkMarker('arr-orange',ORANGE);
 
-  function makeCard(accentColor,borderColor,bgColor,html,onClick){
+  function makeCard(accentColor,borderColor,bgColor,html){
     const div=document.createElementNS('http://www.w3.org/1999/xhtml','div');
     div.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
     div.style.cssText=[
@@ -142,7 +136,6 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);padd
     div.innerHTML=`<div style="position:absolute;top:0;left:0;right:0;height:2px;background:${accentColor};border-radius:10px 10px 0 0"></div>`+html;
     div.addEventListener('mouseenter',()=>div.style.borderColor=accentColor);
     div.addEventListener('mouseleave',()=>div.style.borderColor=borderColor);
-    if(onClick)div.onclick=onClick;
     return div;
   }
   function chips(items,cls){
@@ -152,72 +145,104 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);padd
     return`<div class="int-label">integrações externas</div><div class="int-chips">${items.map(i=>`<span class="int-chip">${i}</span>`).join('')}</div>`;
   }
 
-  // ── ANDROMEDA full width ──────────────────────
+  // ANDROMEDA
   fo(0,Y_ANDRO,W,H_ANDRO,svg).appendChild(makeCard(BLUE,'#1e3a5f','#0d1a2e',`
     <div class="prod-row"><span class="prod-name blue">Andromeda</span><span class="tag">React · Python</span></div>
     <div class="desc">Orquestrador e monitoramento central — controla e administra todos os sistemas</div>
     ${chips(['Orquestração','Monitoramento','Administração global'],'blue')}
-  `,()=>sendPrompt('Me fala mais sobre o Andromeda como orquestrador central')));
+  `));
 
-  sectionLabel(W/2, Y_ROW2-10, 'PRODUTOS OPERACIONAIS');
+  sectionLabel(W/2,Y_ROW2-10,'PRODUTOS OPERACIONAIS');
+  [cx0,cx1,cx2,cx3].forEach(cx=>arrow(cx,Y_ANDRO+H_ANDRO,cx,Y_ROW2-14,BLUE,'arr-blue',svg));
 
-  [cx0,cx1,cx2,cx3].forEach(cx=>{
-    arrow(cx,Y_ANDRO+H_ANDRO,cx,Y_ROW2-14,BLUE,'arr-blue',svg);
-  });
-
-  // ── JUPITER MOBILE ── col 0 ───────────────────
+  // JUPITER MOBILE
   fo(X0,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard(ORANGE,'#5a2e10','#1c100a',`
     <div class="prod-row"><span class="prod-name orange">Jupiter Mobile</span><span class="tag">PWA</span></div>
     <div class="desc">Companion mobile do portal — KPIs, equipe e ranking para o time em campo</div>
     ${chips(['Dashboard','Equipe','Gestão','Ranking'],'orange')}
-  `,()=>sendPrompt('Quais são os detalhes do Jupiter Mobile?')));
+  `));
 
-  // ── JÚPITER ── col 1 ──────────────────────────
+  // JUPITER
   fo(X1,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard(GOLD,'#4a3c10','#1e1a0a',`
-    <div class="prod-row"><span class="prod-name gold">Júpiter</span><span class="tag">Client-Side · PostgreSQL</span></div>
+    <div class="prod-row"><span class="prod-name gold">Jupiter</span><span class="tag">Client-Side · PostgreSQL</span></div>
     <div class="desc">Front operacional — hub de módulos para times de vendas e operações</div>
     ${chips(['Dashboard','Manager Resultados','Daily KPIs','Confirmação Agenda','Book de Vendas','Portfólio','Campanhas','SSO','Reward System','Ouvidoria'],'gold')}
-  `,()=>sendPrompt('Quais são os detalhes de cada módulo do Júpiter?')));
+  `));
 
-  // ── ATHENA ── col 2 ───────────────────────────
+  // ATHENA
   fo(X2,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard('#7a90a8','#1e3048','#0e1520',`
     <div class="prod-row"><span class="prod-name slate">Athena</span><span class="tag">Client-Side</span></div>
     <div class="desc">Gestor de landing pages de campanhas internas</div>
     ${chips(['Liberação','Gestão LP'],'slate')}
     <div class="int-label">landing pages ativas</div>
     <div class="int-chips"><span class="int-chip">Dash V1</span><span class="int-chip">Campanha Macbooks</span></div>
-  `,()=>sendPrompt('Como o Athena controla as landing pages?')));
+  `));
 
-  // ── NETUNO ── col 3 ───────────────────────────
+  // NETUNO
   fo(X3,Y_ROW2,CW,H_ROW2,svg).appendChild(makeCard(TEAL,'#0e3636','#071818',`
     <div class="prod-row"><span class="prod-name teal">Netuno</span><span class="tag">Client-Side</span></div>
     <div class="desc">Sistema de gestão de cobrança e recuperação</div>
     ${chips(['Conexa','GUI','Pulse','WAP Business'],'teal')}
-  `,()=>sendPrompt('Como o Netuno gerencia cobrança e recuperação?')));
+  `));
 
-  // ── setas row2 → Venus ────────────────────────
-  const YB = Y_ROW2+H_ROW2;
-  const YV = Y_VENUS;
-
+  // setas row2 → MCP Venus
+  const YB=Y_ROW2+H_ROW2, YV=Y_VENUS;
   arrow(cx0,YB,cx0,YV-2,ORANGE,'arr-orange',svg);
   connLabel(cx0+46,YB+16,'envia · recebe',ORANGE,'#1c100a','#5a2e10',svg);
-
   arrow(cx1,YB,cx1,YV-2,GOLD,'arr-gold',svg);
   connLabel(cx1+46,YB+16,'envia · recebe',GOLD,'#1e1a0a','#4a3c10',svg);
-
   arrow(cx2,YV-2,cx2,YB+2,SILVER,'arr-silver',svg);
   connLabel(cx2+46,YB+22,'somente envia',SILVER,'#12151c','#2a3040',svg);
-
   arrow(cx3,YB,cx3,YV-2,TEAL,'arr-teal',svg);
   connLabel(cx3-46,YB+16,'envia · recebe',TEAL,'#071818','#0e3636',svg);
 
-  // ── VÊNUS full width ──────────────────────────
+  // MCP VENUS
   fo(0,Y_VENUS,W,H_VENUS,svg).appendChild(makeCard(SILVER,'#2a3040','#12151c',`
-    <div class="prod-row"><span class="prod-name silver">Vênus</span><span class="tag">Python · WebSocket · Celery</span></div>
+    <div class="prod-row"><span class="prod-name silver">MCP Venus</span><span class="tag">Python · WebSocket · Celery</span></div>
     <div class="desc">Middleware e integrador — coleta dados de DBs e APIs, serve via REST</div>
     ${chips(['API REST','WebSocket','Celery Workers'],'silver')}
     ${intChips(['Promptos DB','Busca_Sistema DB','Busca_Lines DB','IFIX Webhook','MySQL Proxy','DB Data API'])}
-  `,()=>sendPrompt('Como o Vênus distribui dados entre os sistemas?')));
+  `));
+
+  // APIS EXTERNAS
+  const apis=[
+    {name:'IFIX API',  tag:'SOAP',color:'#6ea8e8',border:'#1e3a5f',bg:'#0a1520'},
+    {name:'CONEXA API',tag:'REST',color:'#5bc4c0',border:'#0e3636',bg:'#071218'},
+    {name:'SERPER API',tag:'REST',color:'#9b8afb',border:'#2e1f5e',bg:'#0e0a1e'},
+    {name:'Google API',tag:'REST',color:'#f08080',border:'#5e1f1f',bg:'#1a0a0a'},
+  ];
+  const Y_VENUS_BOT=Y_VENUS+H_VENUS;
+
+  apis.forEach((api,i)=>{
+    const ax=i*(ACW+API_HGAP);
+    const acx=ax+ACW/2;
+
+    const mid=`arr-api-${i}`;
+    const m=el('marker',{id:mid,viewBox:'0 0 10 10',refX:'8',refY:'5',markerWidth:'5',markerHeight:'5',orient:'auto'},defs);
+    el('path',{d:'M2 2L8 5L2 8',fill:'none',stroke:api.color,'stroke-width':'1.6','stroke-linecap':'round','stroke-linejoin':'round'},m);
+
+    arrow(acx,Y_APIS,acx,Y_VENUS_BOT+2,api.color,mid,svg);
+
+    const foa=fo(ax,Y_APIS,ACW,H_API,svg);
+    const div=document.createElementNS('http://www.w3.org/1999/xhtml','div');
+    div.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+    div.style.cssText=[
+      'height:100%','padding:10px 12px','border-radius:8px',
+      `border:1px solid ${api.border}`,`background:${api.bg}`,
+      'position:relative','overflow:hidden','font-family:Outfit,sans-serif',
+      'transition:border-color .2s'
+    ].join(';');
+    div.innerHTML=`<div style="position:absolute;top:0;left:0;right:0;height:2px;background:${api.color};border-radius:8px 8px 0 0"></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:2px">
+        <span style="font-size:12px;font-weight:600;color:${api.color};letter-spacing:-.01em">${api.name}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;color:#6e7a8f;background:#181c24;border:1px solid #2e3645;padding:1px 5px;border-radius:3px">${api.tag}</span>
+      </div>`;
+    div.addEventListener('mouseenter',()=>div.style.borderColor=api.color);
+    div.addEventListener('mouseleave',()=>div.style.borderColor=api.border);
+    foa.appendChild(div);
+  });
 
 })();
 </script>
+</body>
+</html>
